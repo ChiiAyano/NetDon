@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDon", "NetDon\NetDon.csproj", "{BB8E3F5A-5191-44AF-B388-94BEF6807DE1}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NetDon.Share", "NetDon.Share\NetDon.Share.shproj", "{5E5FFF02-134D-4603-9768-5002C7854AC0}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		NetDon.Share\NetDon.Share.projitems*{5e5fff02-134d-4603-9768-5002c7854ac0}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB8E3F5A-5191-44AF-B388-94BEF6807DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8E3F5A-5191-44AF-B388-94BEF6807DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8E3F5A-5191-44AF-B388-94BEF6807DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8E3F5A-5191-44AF-B388-94BEF6807DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
