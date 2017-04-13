@@ -9,6 +9,7 @@
     <Import_RootNamespace>NetDon</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApiBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Apps.cs" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NetDon
 {
-    public class Apps
+    public class Apps : ApiBase
     {
         [Flags]
         public enum Scope
@@ -15,9 +15,12 @@ namespace NetDon
             Follow =    0x10
         }
 
+        protected override string ApiEndpointName { get; } = "apps";
+
         public static async Task RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, Scope scopes, string webSite)
         {
-
+            var uri = CreateUriBase(new Uri(mastdonUri));
+            
         }
     }
 }
