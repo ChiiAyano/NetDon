@@ -9,6 +9,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "NetDon.Share", "NetDon.Shar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDon.Register", "NetDon.Register\NetDon.Register.csproj", "{0C7A35CA-9690-4124-AD74-55916CE96E61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDon.Tests", "NetDon.Tests\NetDon.Tests.csproj", "{56E7CCC3-67B0-441D-8050-4619851B946B}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		NetDon.Share\NetDon.Share.projitems*{5e5fff02-134d-4603-9768-5002c7854ac0}*SharedItemsImports = 13
@@ -26,6 +28,10 @@ Global
 		{0C7A35CA-9690-4124-AD74-55916CE96E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C7A35CA-9690-4124-AD74-55916CE96E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C7A35CA-9690-4124-AD74-55916CE96E61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E7CCC3-67B0-441D-8050-4619851B946B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E7CCC3-67B0-441D-8050-4619851B946B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E7CCC3-67B0-441D-8050-4619851B946B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E7CCC3-67B0-441D-8050-4619851B946B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

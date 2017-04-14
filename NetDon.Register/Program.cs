@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace NetDon.Register
 {
@@ -33,7 +36,7 @@ namespace NetDon.Register
             redirect = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(redirect)) redirect = Apps.DefaultRedirectUri;
 
-            Console.Write("Scope (space-separated, \"read\", \"write\", \"follow\": ");
+            Console.Write("Scope (space-separated: \"read\", \"write\", \"follow\")(default: read): ");
             scopes = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(scopes)) scopes = "read";
 
@@ -43,6 +46,16 @@ namespace NetDon.Register
 
             var apps = new Apps();
             var result = apps.RegisterAppAsync(mastodonUri, appName, redirect, scopes, website).Result;
+
+            // ファイルに保存
+            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var filePath = Path.Combine(assemblyPath, "output.txt");
+            File.WriteAllText(filePath, result.ToString());
+
+            Console.WriteLine("File written: " + filePath);
+            Console.Write("Please any key to exit:");
+
+            Console.ReadKey();
         }
     }
 }

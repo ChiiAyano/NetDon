@@ -6,11 +6,9 @@ namespace NetDon
 {
     public abstract class ApiBase
     {
-        protected abstract string ApiEndpointName { get; }
-
-        protected Uri CreateUriBase(Uri mastodonUri)
+        protected Uri CreateUriBase(Uri mastodonUri, string endpoint)
         {
-            var uri = new Uri(mastodonUri, "/api/v1/" + this.ApiEndpointName);
+            var uri = new Uri(mastodonUri, "/api/v1/" + endpoint);
             return uri;
         }
     }
