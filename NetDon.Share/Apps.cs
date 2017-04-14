@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Newtonsoft.Json;
+using NetDon.Models;
 
 namespace NetDon
 {
@@ -21,17 +23,17 @@ namespace NetDon
 
         protected override string ApiEndpointName { get; } = "apps";
 
-        public async Task RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, Scope scopes, string webSite)
+        public async Task<AppModel> RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, Scope scopes, string webSite)
         {
-            await RegisterAppAsync(mastdonUri, clientName, redirectUri, GetScopes(scopes), webSite);
+            return await RegisterAppAsync(mastdonUri, clientName, redirectUri, GetScopes(scopes), webSite);
         }
 
-        public async Task RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
+        public async Task<AppModel> RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
         {
-            await RegisterAppAsync(new Uri(mastdonUri), clientName, redirectUri, scopes, webSite);
+            return await RegisterAppAsync(new Uri(mastdonUri), clientName, redirectUri, scopes, webSite);
         }
 
-        public async Task RegisterAppAsync(Uri mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
+        public async Task<AppModel> RegisterAppAsync(Uri mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
         {
             var uri = CreateUriBase(mastdonUri);
             var data = new FormUrlEncodedContent(new[]
@@ -46,9 +48,13 @@ namespace NetDon
 
             if (result.IsSuccessStatusCode)
             {
-                var resultData = await result.Content.ReadAsStringAsync();
-                // TODO ここで情報を取る
+                var response = await result.Content.ReadAsStringAsync();
+                var registData = JsonConvert.DeserializeObject<AppModel>(response);
+
+                return registData;
             }
+
+            return null;
         }
 
         private string GetScopes(Scope scopes)

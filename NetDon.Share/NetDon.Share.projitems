@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApiBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Apps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AppModel.cs" />
   </ItemGroup>
 </Project>

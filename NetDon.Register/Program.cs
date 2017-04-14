@@ -42,7 +42,7 @@ namespace NetDon.Register
 
 
             var apps = new Apps();
-            apps.RegisterAppAsync(mastodonUri, appName, redirect, scopes, website).Wait();
+            var result = apps.RegisterAppAsync(mastodonUri, appName, redirect, scopes, website).Result;
         }
     }
 }

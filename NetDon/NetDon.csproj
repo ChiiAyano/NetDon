@@ -6,4 +6,8 @@
 
   <Import Project="..\NetDon.Share\NetDon.Share.projitems" Label="Shared" />
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
 </Project>
