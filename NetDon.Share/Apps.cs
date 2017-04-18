@@ -34,13 +34,14 @@ namespace NetDon
         public async Task<AppModel> RegisterAppAsync(Uri mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
         {
             var uri = CreateUriBase(mastdonUri, "app");
-            var data = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string,string>("client_name", clientName),
-                new KeyValuePair<string,string>("redirect_uris", redirectUri),
-                new KeyValuePair<string,string>("scopes", scopes),
-                new KeyValuePair<string,string>("website", webSite)
-            });
+            var data = new FormUrlEncodedContent(
+                new Dictionary<string, string>
+                {
+                    {"client_name", clientName },
+                    { "redirect_uris", redirectUri },
+                    { "scopes", scopes },
+                    { "website", webSite }
+                });
 
             var result = await new HttpClient().PostAsync(uri, data);
 

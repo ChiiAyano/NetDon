@@ -32,14 +32,15 @@ namespace NetDon
         public async Task<string> GetAccessTokenAsync(string email, string password)
         {
             var uri = new Uri(instanceUri, "oauth/token");
-            var requestData = new FormUrlEncodedContent(new []
-            {
-                new KeyValuePair<string, string> ("client_id", this.clientId),
-                new KeyValuePair<string, string> ("client_secret", this.clientSecret),
-                new KeyValuePair<string, string> ("grant_type", "password"),
-                new KeyValuePair<string, string> ("username", email),
-                new KeyValuePair<string, string> ("password", password)
-            });
+            var requestData = new FormUrlEncodedContent(
+                new Dictionary<string, string>
+                {
+                    { "client_id", this.clientId },
+                    { "client_secret", this.clientSecret },
+                    { "grant_type", "password" },
+                    { "username", email },
+                    { "password", password }
+                });
 
             var response = await new HttpClient().PostAsync(uri, requestData);
 
@@ -49,6 +50,13 @@ namespace NetDon
                 return responseData;
             }
             return null;
+        }
+
+        public Uri GetAuthorizeUri(string redirectUri)
+        {
+            var parameter = "?client_id=" + this.clientId + "&response_type=code&redirect_uri=" + redirectUri;
+
+            return new Uri(instanceUri, parameter);
         }
 
         #endregion
