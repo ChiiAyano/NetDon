@@ -28,33 +28,15 @@ namespace NetDon
 
         #region GetToken
 
-        // TODO 戻り値型は一時的
-        public async Task<string> GetAccessTokenAsync(string email, string password)
-        {
-            var uri = new Uri(instanceUri, "oauth/token");
-            var requestData = new FormUrlEncodedContent(
-                new Dictionary<string, string>
-                {
-                    { "client_id", this.clientId },
-                    { "client_secret", this.clientSecret },
-                    { "grant_type", "password" },
-                    { "username", email },
-                    { "password", password }
-                });
-
-            var response = await new HttpClient().PostAsync(uri, requestData);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseData = await response.Content.ReadAsStringAsync();
-                return responseData;
-            }
-            return null;
-        }
-
+        /// <summary>
+        /// Get an Authorize URI.
+        /// 認証に使用する URI を取得します。UWP の場合はこの URI を WebAuthenticationBroker などで使用することにより、アクセス トークンを取得できます。
+        /// </summary>
+        /// <param name="redirectUri"></param>
+        /// <returns></returns>
         public Uri GetAuthorizeUri(string redirectUri)
         {
-            var parameter = "?client_id=" + this.clientId + "&response_type=code&redirect_uri=" + redirectUri;
+            var parameter = "oauth/authorize?client_id=" + this.clientId + "&response_type=code&redirect_uri=" + Uri.EscapeUriString(redirectUri);
 
             return new Uri(instanceUri, parameter);
         }
