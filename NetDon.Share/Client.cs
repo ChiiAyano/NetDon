@@ -19,9 +19,9 @@ namespace NetDon
         {
         }
 
-        public Client(string instanceUri, string clientId, string clientSecret, string accessToken)
-            : this(instanceUri, clientId, clientSecret)
+        public Client(string instanceUri, string accessToken)
         {
+            this.instanceUri = new Uri(instanceUri);
             this.accessToken = accessToken;
         }
 
@@ -32,9 +32,9 @@ namespace NetDon
             this.clientSecret = clientSecret;
         }
 
-        public Client(Uri instanceUri, string clientId, string clientSecret, string accessToken)
-            : this(instanceUri, clientId, clientSecret)
+        public Client(Uri instanceUri, string accessToken)
         {
+            this.instanceUri = instanceUri;
             this.accessToken = accessToken;
         }
 
@@ -75,10 +75,10 @@ namespace NetDon
         /// <returns></returns>
         public async Task<string> GetCurrentUserAsync()
         {
-            var endpoint = "/api/v1/accounts/verify_credentials";
+            var endpoint = new Uri(this.instanceUri, "/api/v1/accounts/verify_credentials");
             var http = CreateClient();
 
-            var response = await http.GetAsync(new Uri(this.instanceUri, endpoint));
+            var response = await http.GetAsync(endpoint);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync();
@@ -94,10 +94,10 @@ namespace NetDon
 
         public async Task<string> GetHomeTimelineAsync()
         {
-            var endpoint = "/api/v1/timelines/home";
+            var endpoint = new Uri(this.instanceUri, "/api/v1/timelines/home");
             var http = CreateClient();
 
-            var response = await http.GetAsync(new Uri(this.instanceUri, endpoint));
+            var response = await http.GetAsync(endpoint);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync();
