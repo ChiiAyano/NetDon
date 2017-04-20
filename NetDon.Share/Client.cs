@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetDon.Enums;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -58,11 +59,48 @@ namespace NetDon
         /// </summary>
         /// <param name="redirectUri"></param>
         /// <returns></returns>
-        public Uri GetAuthorizeUri(string redirectUri)
+        public Uri GetAuthorizeUri(string redirectUri, Scope scopes)
         {
-            var parameter = "oauth/authorize?client_id=" + this.clientId + "&response_type=code&redirect_uri=" + Uri.EscapeUriString(redirectUri);
+            var parameter = $"oauth/authorize?client_id={this.clientId}&" +
+                $"grant_type=authorization_code&" +
+                $"response_type=code&" +
+                $"redirect_uri={Uri.EscapeUriString(redirectUri)}";
+            var scopeStr = scopes.ToScopeStrings();
+            if (!string.IsNullOrWhiteSpace(scopeStr))
+            {
+                parameter += "&scopes=" + scopeStr;
+            }
 
-            return new Uri(instanceUri, parameter);
+            return new Uri(instanceUri, Uri.EscapeUriString(parameter));
+        }
+
+        public async Task<string> GetAccessToken(string authCode, string redirectUri = "")
+        {
+            var endpoint = new Uri(this.instanceUri, "/oauth/token");
+            var data = new Dictionary<string, string>
+            {
+                { "grant_type", "authorization_code"},
+                { "client_id", this.clientId },
+                { "client_secret", this.clientSecret},
+                { "code", authCode }
+            };
+
+            if (!string.IsNullOrWhiteSpace(redirectUri))
+            {
+                data.Add("redirect_uri", redirectUri);
+            }
+
+            var requestData = new FormUrlEncodedContent(data);
+
+            var http = CreateClient();
+            var response = await http.PostAsync(endpoint, requestData);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                return result;
+            }
+
+            return null;
         }
 
         #endregion

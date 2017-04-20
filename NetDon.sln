@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDon.Register", "NetDon.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDon.Tests", "NetDon.Tests\NetDon.Tests.csproj", "{56E7CCC3-67B0-441D-8050-4619851B946B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDon.Tests.Uwp", "NetDon.Tests.Uwp\NetDon.Tests.Uwp.csproj", "{9A2B5FED-C948-44DC-AC87-94C168042A1E}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		NetDon.Share\NetDon.Share.projitems*{5e5fff02-134d-4603-9768-5002c7854ac0}*SharedItemsImports = 13
@@ -76,26 +74,6 @@ Global
 		{56E7CCC3-67B0-441D-8050-4619851B946B}.Release|x64.Build.0 = Release|Any CPU
 		{56E7CCC3-67B0-441D-8050-4619851B946B}.Release|x86.ActiveCfg = Release|Any CPU
 		{56E7CCC3-67B0-441D-8050-4619851B946B}.Release|x86.Build.0 = Release|Any CPU
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|ARM.ActiveCfg = Debug|ARM
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|ARM.Build.0 = Debug|ARM
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|ARM.Deploy.0 = Debug|ARM
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|x64.ActiveCfg = Debug|x64
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|x64.Build.0 = Debug|x64
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|x64.Deploy.0 = Debug|x64
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|x86.ActiveCfg = Debug|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|x86.Build.0 = Debug|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Debug|x86.Deploy.0 = Debug|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|Any CPU.ActiveCfg = Release|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|ARM.ActiveCfg = Release|ARM
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|ARM.Build.0 = Release|ARM
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|ARM.Deploy.0 = Release|ARM
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|x64.ActiveCfg = Release|x64
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|x64.Build.0 = Release|x64
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|x64.Deploy.0 = Release|x64
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|x86.ActiveCfg = Release|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|x86.Build.0 = Release|x86
-		{9A2B5FED-C948-44DC-AC87-94C168042A1E}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

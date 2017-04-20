@@ -6,24 +6,17 @@ using System.Threading.Tasks;
 using System.Linq;
 using Newtonsoft.Json;
 using NetDon.Models;
+using NetDon.Enums;
 
 namespace NetDon
 {
     public class Apps : ApiBase
     {
-        [Flags]
-        public enum Scope
-        {
-            Read =      0x00,
-            Write =     0x01,
-            Follow =    0x10
-        }
-
         public static string DefaultRedirectUri { get; } = "urn:ietf:wg:oauth:2.0:oob";
 
         public async Task<AppModel> RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, Scope scopes, string webSite)
         {
-            return await RegisterAppAsync(mastdonUri, clientName, redirectUri, GetScopes(scopes), webSite);
+            return await RegisterAppAsync(mastdonUri, clientName, redirectUri, scopes.ToScopeStrings(), webSite);
         }
 
         public async Task<AppModel> RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
@@ -59,16 +52,6 @@ namespace NetDon
             }
 
             return null;
-        }
-
-        private string GetScopes(Scope scopes)
-        {
-            var result = new List<string>();
-            if ((scopes & Scope.Read) == Scope.Read) result.Add("read");
-            if ((scopes & Scope.Write) == Scope.Write) result.Add("write");
-            if ((scopes & Scope.Follow) == Scope.Follow) result.Add("follow");
-
-            return string.Join(" ", result);
         }
     }
 }
