@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NetDon.Models
+namespace NetDon.Entities
 {
     public class AccountModel
     {

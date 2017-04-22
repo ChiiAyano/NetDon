@@ -31,7 +31,7 @@ namespace NetDon.Tests
             var client = GetClient();
             var timelines = await client.GetHomeTimelineAsync();
 
-            output.WriteLine(timelines);
+            output.WriteLine(string.Join("\r\n", timelines));
         }
     }
 }

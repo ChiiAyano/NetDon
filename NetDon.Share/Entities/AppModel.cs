@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NetDon.Models
+namespace NetDon.Entities
 {
     public class AppModel
     {

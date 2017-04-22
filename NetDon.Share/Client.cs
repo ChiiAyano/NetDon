@@ -1,5 +1,5 @@
 ﻿using NetDon.Enums;
-using NetDon.Models;
+using NetDon.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -122,8 +122,8 @@ namespace NetDon
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<AccountModel>(result);
-                return model;
+                var data = JsonConvert.DeserializeObject<AccountModel>(result);
+                return data;
             }
 
             return null;
@@ -133,7 +133,11 @@ namespace NetDon
 
         #region Timelines
 
-        public async Task<string> GetHomeTimelineAsync()
+        /// <summary>
+        /// Get current home timeline. 現在のホーム タイムラインを取得します。
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<StatusModel>> GetHomeTimelineAsync()
         {
             var endpoint = new Uri(this.instanceUri, "/api/v1/timelines/home");
             var http = CreateClient();
@@ -142,7 +146,8 @@ namespace NetDon
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync();
-                return result;
+                var data = JsonConvert.DeserializeObject<IEnumerable<StatusModel>>(result);
+                return data;
             }
 
             return null;

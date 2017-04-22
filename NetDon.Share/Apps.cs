@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Newtonsoft.Json;
-using NetDon.Models;
+using NetDon.Entities;
 using NetDon.Enums;
 
 namespace NetDon
