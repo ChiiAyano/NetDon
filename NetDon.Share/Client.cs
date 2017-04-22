@@ -1,4 +1,6 @@
 ﻿using NetDon.Enums;
+using NetDon.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -111,7 +113,7 @@ namespace NetDon
         /// Get an Current User Information. 現在ログインしているユーザーの情報を取得します。
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetCurrentUserAsync()
+        public async Task<AccountModel> GetCurrentUserAsync()
         {
             var endpoint = new Uri(this.instanceUri, "/api/v1/accounts/verify_credentials");
             var http = CreateClient();
@@ -120,7 +122,8 @@ namespace NetDon
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync();
-                return result;
+                var model = JsonConvert.DeserializeObject<AccountModel>(result);
+                return model;
             }
 
             return null;

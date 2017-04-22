@@ -7,7 +7,7 @@
 
         protected Client GetClient()
         {
-            return new Client("https://m6n.onsen.tech/", this.AccessToken);
+            return new Client("https://m.moriya.faith", this.AccessToken);
         }
     }
 }

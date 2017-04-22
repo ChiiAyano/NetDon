@@ -22,7 +22,7 @@ namespace NetDon.Tests
             var client = GetClient();
             var account = await client.GetCurrentUserAsync();
 
-            output.WriteLine(account);
+            output.WriteLine(account.ToString());
         }
 
         [Fact]
