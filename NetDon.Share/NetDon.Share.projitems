@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Apps.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Client.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\ApplicationModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MentionModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\StatusModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\Scopes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AccountModel.cs" />

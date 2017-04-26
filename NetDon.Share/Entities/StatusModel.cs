@@ -108,13 +108,16 @@ namespace NetDon.Entities
         /// </summary>
         [JsonProperty("application")]
         public ApplicationModel ApplicationInfo { get; internal set; }
+        /// <summary>
+        /// Get mentioned user informations.
+        /// メンションしたユーザーの情報を取得します。
+        /// </summary>
+        [JsonProperty("mentions")]
+        public MentionModel[] Mentions { get; internal set; }
 
         //// TODO
         //[JsonProperty("media_attachments")]
         //public string MediaAttachments { get; internal set; }
-        //// TODO
-        //[JsonProperty("mentions")]
-        //public string Mentions { get; internal set; }
         //// TODO
         //[JsonProperty("tags")]
         //public string Tags { get; internal set; }
@@ -125,7 +128,7 @@ namespace NetDon.Entities
             var userName = string.IsNullOrWhiteSpace(this.Account.DisplayName) ? this.Account.UserName : this.Account.DisplayName;
 
             return
-                $"[{this.ID}] {userName}: {this.Content} ({this.CreatedAt:yyyy/MM/dd HH:mm:ss})";
+                $"[{this.ID}] {userName}: {this.Content} ({this.CreatedAt.ToLocalTime():yyyy/MM/dd HH:mm:ss zzz})";
         }
     }
 }
