@@ -114,10 +114,8 @@ namespace NetDon.Entities
         /// </summary>
         [JsonProperty("mentions")]
         public MentionModel[] Mentions { get; internal set; }
-
-        //// TODO
-        //[JsonProperty("media_attachments")]
-        //public string MediaAttachments { get; internal set; }
+        [JsonProperty("media_attachments")]
+        public AttachmentModel[] MediaAttachments { get; internal set; }
         //// TODO
         //[JsonProperty("tags")]
         //public string Tags { get; internal set; }
