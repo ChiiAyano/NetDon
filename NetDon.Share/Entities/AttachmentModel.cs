@@ -19,5 +19,10 @@ namespace NetDon.Entities
         public Uri PreviewUrl { get; internal set; }
         [JsonProperty("text_url")]
         public Uri TextUrl { get; internal set; }
+
+        public override string ToString()
+        {
+            return $"[{this.ID}] Type: {this.Type} Url: {this.Url}";
+        }
     }
 }

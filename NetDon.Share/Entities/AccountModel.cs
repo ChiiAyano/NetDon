@@ -68,23 +68,23 @@ namespace NetDon.Entities
         [JsonProperty("note")]
         public string Note { get; internal set; }
         /// <summary>
-        /// Get a user URI.
-        /// このユーザーの URI を取得します。
+        /// Get a user URL.
+        /// このユーザーの URL を取得します。
         /// </summary>
         [JsonProperty("url")]
-        public Uri AccountUri { get; set; }
+        public Uri AccountUrl { get; set; }
         /// <summary>
-        /// Get an avatar image URI.
-        /// このユーザーのアバター画像 URI を取得します。
+        /// Get an avatar image URL.
+        /// このユーザーのアバター画像 URL を取得します。
         /// </summary>
         [JsonProperty("avatar")]
-        public Uri AvatarImageUri { get; internal set; }
+        public Uri AvatarImageUrl { get; internal set; }
         /// <summary>
-        /// Get a header image URI.
-        /// このユーザーのヘッダー画像 URI を取得します。
+        /// Get a header image URL.
+        /// このユーザーのヘッダー画像 URL を取得します。
         /// </summary>
         [JsonProperty("header")]
-        public Uri HeaderImageUri { get; internal set; }
+        public Uri HeaderImageUrl { get; internal set; }
 
         public override string ToString()
         {

@@ -114,11 +114,18 @@ namespace NetDon.Entities
         /// </summary>
         [JsonProperty("mentions")]
         public MentionModel[] Mentions { get; internal set; }
+        /// <summary>
+        /// Get media attachments.
+        /// 添付されたメディアの情報を取得します。
+        /// </summary>
         [JsonProperty("media_attachments")]
         public AttachmentModel[] MediaAttachments { get; internal set; }
-        //// TODO
-        //[JsonProperty("tags")]
-        //public string Tags { get; internal set; }
+        /// <summary>
+        /// Get hashtags.
+        /// トゥート内に含まれるハッシュタグの情報を取得します。
+        /// </summary>
+        [JsonProperty("tags")]
+        public TagModel[] Tags { get; internal set; }
 
         public override string ToString()
         {

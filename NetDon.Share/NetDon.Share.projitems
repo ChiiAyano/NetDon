@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AttachmentModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\MentionModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\StatusModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\TagModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums\Scopes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AccountModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\AppModel.cs" />

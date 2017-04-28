@@ -33,7 +33,7 @@ namespace NetDon.Entities
 
         public override string ToString()
         {
-            return $"[ID: {this.ID}] @{this.Acct} ({this.UserName})";
+            return $"[{this.ID}] @{this.Acct} ({this.UserName})";
         }
     }
 }
