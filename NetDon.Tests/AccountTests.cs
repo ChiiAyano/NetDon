@@ -17,10 +17,19 @@ namespace NetDon.Tests
         }
 
         [Fact]
-        public async Task GetAccountTest()
+        public async Task GetCurrentAccountTest()
         {
             var client = GetClient();
             var account = await client.GetCurrentUserAsync();
+
+            output.WriteLine(account.ToString());
+        }
+
+        [Fact]
+        public async Task GetAccountTest()
+        {
+            var client = GetClient();
+            var account = await client.GetUserAsync(2);
 
             output.WriteLine(account.ToString());
         }
@@ -32,6 +41,48 @@ namespace NetDon.Tests
             var timelines = await client.GetHomeTimelineAsync();
 
             output.WriteLine(string.Join("\r\n", timelines));
+        }
+
+        [Fact]
+        public async Task GetFollowersTest()
+        {
+            var client = GetClient();
+            var followers = await client.GetUserFollowers(1);
+
+            output.WriteLine(string.Join("\r\n", followers));
+
+            followers = await client.GetUserFollowers(1, 90, limit: 80);
+
+            output.WriteLine(string.Join("\r\n", followers));
+
+            followers = await client.GetUserFollowers(1, sinceId: 5, limit: 80);
+
+            output.WriteLine(string.Join("\r\n", followers));
+
+            followers = await client.GetUserFollowers(1, 90, 5, 80);
+
+            output.WriteLine(string.Join("\r\n", followers));
+        }
+
+        [Fact]
+        public async Task GetFollowingTest()
+        {
+            var client = GetClient();
+            var following = await client.GetUserFollowing(1);
+
+            output.WriteLine(string.Join("\r\n", following));
+
+            following = await client.GetUserFollowing(1, 90, limit: 80);
+
+            output.WriteLine(string.Join("\r\n", following));
+
+            following = await client.GetUserFollowing(1, sinceId: 5, limit: 80);
+
+            output.WriteLine(string.Join("\r\n", following));
+
+            following = await client.GetUserFollowing(1, 90, 5, 80);
+
+            output.WriteLine(string.Join("\r\n", following));
         }
     }
 }
