@@ -138,7 +138,8 @@ namespace NetDon
         }
 
         /// <summary>
-        /// 
+        /// Get an account's followers.
+        /// 指定されたユーザーをフォローしているユーザーの一覧を取得します。
         /// </summary>
         /// <param name="id">User ID. 取得したいユーザーの ID。</param>
         /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するフォロワー ユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
@@ -150,6 +151,12 @@ namespace NetDon
             return await GetUserFollows("followers", id, maxId, sinceId, limit);
         }
 
+        /// <summary>
+        /// Get an account's relationships.
+        /// 指定されたユーザーと、現在ログインしているユーザーとの関係を取得します。
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<RelationshipModel> GetRelationShipsAsync(long id)
         {
             var endpoint = CreateUriBase("/accounts/relationships?id=" + id);
@@ -158,6 +165,12 @@ namespace NetDon
             return result.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Get an account's relationships.
+        /// 指定されたユーザーと、現在ログインしているユーザーとの関係を取得します。
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<RelationshipModel>> GetRelationShipsAsync(long[] ids)
         {
             var endpoint = CreateUriBase("/accounts/relationships?id[]=" + string.Join("&id[]=", ids));
