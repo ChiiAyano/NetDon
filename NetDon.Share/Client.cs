@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace NetDon
 {
@@ -179,6 +180,13 @@ namespace NetDon
             return result;
         }
 
+        /// <summary>
+        /// Get result of search for accounts.
+        /// アカウントの検索結果を取得します。
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="lim"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<AccountModel>> SearchAsync(string query, int lim = 40)
         {
             var endpoint = CreateUriBase("/accounts/search?" + CreateGetParameters(q => query, limit => lim));
@@ -225,6 +233,115 @@ namespace NetDon
             }
 
             return null;
+        }
+
+        #endregion
+
+        #region Blocks
+
+        /// <summary>
+        /// Get own blocks list.
+        /// 現在ログインしているユーザーのブロック リストを取得します。
+        /// </summary>
+        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<AccountModel>> GetBlocksAsync(long? maxId = null, long? sinceId = null, int lim = 40)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 80 まで
+            if (lim > 80)
+            {
+                throw new ArgumentException("Limit exeeded. Max 80.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase("/blocks?" + CreateGetParameters(parameters.ToArray()));
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get own favorites list.
+        /// 現在ログインしているユーザーのお気に入りリストを取得します。
+        /// </summary>
+        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<AccountModel>> GetFavoritesAsync(long? maxId = null, long? sinceId = null, int lim = 40)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 80 まで
+            if (lim > 80)
+            {
+                throw new ArgumentException("Limit exeeded. Max 80.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase("/favourites?" + CreateGetParameters(parameters.ToArray()));
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get follow requests list.
+        /// フォロー リクエストを出しているユーザーの一覧を取得します。
+        /// </summary>
+        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<AccountModel>> GetFollowRequestsAsync(long? maxId = null, long? sinceId = null, int lim = 40)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 80 まで
+            if (lim > 80)
+            {
+                throw new ArgumentException("Limit exeeded. Max 80.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase("/follow_requests?" + CreateGetParameters(parameters.ToArray()));
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint);
+
+            return result;
         }
 
         #endregion

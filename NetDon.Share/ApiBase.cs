@@ -79,6 +79,10 @@ namespace NetDon
                 var data = JsonConvert.DeserializeObject<T>(result);
                 return data;
             }
+            else
+            {
+                var result = await response.Content.ReadAsStringAsync();
+            }
 
             return default(T);
         }
