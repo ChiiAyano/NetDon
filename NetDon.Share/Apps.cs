@@ -26,7 +26,7 @@ namespace NetDon
 
         public async Task<AppModel> RegisterAppAsync(string clientName, string redirectUrl, string scopes, string webSite)
         {
-            var uri = CreateUriBase("apps");
+            var uri = CreateUriBase("/apps");
             var data = new Dictionary<string, string>
             {
                 {"client_name", clientName },

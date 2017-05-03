@@ -59,7 +59,7 @@ namespace NetDon
             var scopeStr = scopes.ToScopeStrings();
             if (!string.IsNullOrWhiteSpace(scopeStr))
             {
-                parameter += "&scopes=" + scopeStr;
+                parameter += "&scope=" + scopeStr;
             }
 
             return new Uri(instanceUri, Uri.EscapeUriString(parameter));
@@ -274,6 +274,10 @@ namespace NetDon
             return result;
         }
 
+        #endregion
+
+        #region Favorites
+
         /// <summary>
         /// Get own favorites list.
         /// 現在ログインしているユーザーのお気に入りリストを取得します。
@@ -282,7 +286,7 @@ namespace NetDon
         /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
-        public async Task<IEnumerable<AccountModel>> GetFavoritesAsync(long? maxId = null, long? sinceId = null, int lim = 40)
+        public async Task<IEnumerable<StatusModel>> GetFavoritesAsync(long? maxId = null, long? sinceId = null, int lim = 40)
         {
             var parameters = new List<Expression<Func<object, object>>>();
 
@@ -304,10 +308,14 @@ namespace NetDon
             }
 
             var endpoint = CreateUriBase("/favourites?" + CreateGetParameters(parameters.ToArray()));
-            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint);
+            var result = await GetAsync<IEnumerable<StatusModel>>(endpoint);
 
             return result;
         }
+
+        #endregion
+
+        #region Follow Requests
 
         /// <summary>
         /// Get follow requests list.

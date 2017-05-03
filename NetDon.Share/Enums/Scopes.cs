@@ -14,14 +14,14 @@ namespace NetDon.Enums
 
     public static class ScopeExtensions
     {
-        public static string ToScopeStrings(this Scope scopes)
+        public static string ToScopeStrings(this Scope scopes, string joinSeparator = " ")
         {
             var result = new List<string>();
             if ((scopes & Scope.Read) == Scope.Read) result.Add("read");
             if ((scopes & Scope.Write) == Scope.Write) result.Add("write");
             if ((scopes & Scope.Follow) == Scope.Follow) result.Add("follow");
 
-            return string.Join(" ", result);
+            return string.Join(joinSeparator, result);
         }
     }
 }
