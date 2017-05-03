@@ -179,6 +179,14 @@ namespace NetDon
             return result;
         }
 
+        public async Task<IEnumerable<AccountModel>> SearchAsync(string query, int lim = 40)
+        {
+            var endpoint = CreateUriBase("/accounts/search?" + CreateGetParameters(q => query, limit => lim));
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint);
+
+            return result;
+        }
+
         private async Task<IEnumerable<AccountModel>> GetUserFollows(string apiName, long id, long? maxId, long? sinceId, int limit)
         {
             var parameters = "/accounts/" + id + "/" + apiName;

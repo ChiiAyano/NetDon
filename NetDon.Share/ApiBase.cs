@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -48,6 +49,23 @@ namespace NetDon
         {
             var uri = new Uri(baseUri, prefix + endpoint);
             return uri;
+        }
+
+        protected string CreateGetParameters(params Expression<Func<object, object>>[] exprs)
+        {
+            var contents = new StringBuilder();
+            foreach (var expr in exprs)
+            {
+                var obj = expr.Compile()?.Invoke(null);
+                if (obj == null) continue;
+
+                var param = obj.ToString();
+                if (string.IsNullOrWhiteSpace(param)) continue;
+
+                contents.Append($"{expr.Parameters[0].Name}={Uri.EscapeUriString(param)}&");
+            }
+
+            return contents.ToString().Trim('&');
         }
 
         protected async Task<T> GetAsync<T>(Uri endpoint)

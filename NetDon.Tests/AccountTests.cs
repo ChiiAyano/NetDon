@@ -102,5 +102,14 @@ namespace NetDon.Tests
 
             output.WriteLine(string.Join("\r\n", relationships));
         }
+
+        [Fact]
+        public async Task SearchTest()
+        {
+            var client = GetClient();
+            var search = await client.SearchAsync("@ayn@m6n.onsen.tech");
+
+            output.WriteLine(string.Join("\r\n", search));
+        }
     }
 }
