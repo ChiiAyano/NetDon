@@ -14,23 +14,23 @@ namespace NetDon
     {
         public static string DefaultRedirectUri { get; } = "urn:ietf:wg:oauth:2.0:oob";
 
-        public async Task<AppModel> RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, Scope scopes, string webSite)
+        public Apps(Uri mastodonUrl)
+            : base(mastodonUrl)
         {
-            return await RegisterAppAsync(mastdonUri, clientName, redirectUri, scopes.ToScopeStrings(), webSite);
         }
 
-        public async Task<AppModel> RegisterAppAsync(string mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
+        public async Task<AppModel> RegisterAppAsync(string clientName, string redirectUrl, Scope scopes, string webSite)
         {
-            return await RegisterAppAsync(new Uri(mastdonUri), clientName, redirectUri, scopes, webSite);
+            return await RegisterAppAsync(clientName, redirectUrl, scopes.ToScopeStrings(), webSite);
         }
 
-        public async Task<AppModel> RegisterAppAsync(Uri mastdonUri, string clientName, string redirectUri, string scopes, string webSite)
+        public async Task<AppModel> RegisterAppAsync(string clientName, string redirectUrl, string scopes, string webSite)
         {
-            var uri = CreateUriBase(mastdonUri, "apps");
+            var uri = CreateUriBase("apps");
             var data = new Dictionary<string, string>
             {
                 {"client_name", clientName },
-                { "redirect_uris", redirectUri },
+                { "redirect_uris", redirectUrl },
                 { "scopes", scopes },
             };
 

@@ -44,8 +44,8 @@ namespace NetDon.Register
             website = Console.ReadLine();
 
 
-            var apps = new Apps();
-            var result = apps.RegisterAppAsync(mastodonUri, appName, redirect, scopes, website).Result;
+            var apps = new Apps(mastodonUri);
+            var result = apps.RegisterAppAsync(appName, redirect, scopes, website).Result;
 
             // ファイルに保存
             var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);

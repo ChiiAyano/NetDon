@@ -7,53 +7,39 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace NetDon
 {
     public class Client : ApiBase
     {
-        private const string prefix = "/api/v1";
-
-        private readonly Uri instanceUri;
         private readonly string clientId;
         private readonly string clientSecret;
-        private readonly string accessToken;
+
 
         public Client(string instanceUri, string clientId, string clientSecret)
-            : this(new Uri(instanceUri), clientId, clientSecret)
+            : base(new Uri(instanceUri))
         {
+            this.clientId = clientId;
+            this.clientSecret = clientSecret;
         }
 
         public Client(string instanceUri, string accessToken)
+            : base(new Uri(instanceUri), accessToken)
         {
-            this.instanceUri = new Uri(instanceUri);
-            this.accessToken = accessToken;
         }
 
         public Client(Uri instanceUri, string clientId, string clientSecret)
+            : base(instanceUri)
         {
-            this.instanceUri = instanceUri;
             this.clientId = clientId;
             this.clientSecret = clientSecret;
         }
 
         public Client(Uri instanceUri, string accessToken)
+            : base(instanceUri, accessToken)
         {
-            this.instanceUri = instanceUri;
-            this.accessToken = accessToken;
         }
-
-        #region Create Client
-
-        private HttpClient CreateClient()
-        {
-            var http = new HttpClient();
-            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.accessToken);
-
-            return http;
-        }
-
-        #endregion
 
         #region GetToken
 
@@ -117,18 +103,10 @@ namespace NetDon
         /// <returns></returns>
         public async Task<AccountModel> GetCurrentUserAsync()
         {
-            var endpoint = new Uri(this.instanceUri, prefix + "/accounts/verify_credentials");
-            var http = CreateClient();
+            var endpoint = CreateUriBase("/accounts/verify_credentials");
+            var result = await GetAsync<AccountModel>(endpoint);
 
-            var response = await http.GetAsync(endpoint);
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<AccountModel>(result);
-                return data;
-            }
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -139,19 +117,10 @@ namespace NetDon
         /// <returns></returns>
         public async Task<AccountModel> GetUserAsync(long id)
         {
-            var endpoint = new Uri(this.instanceUri, prefix + "/accounts/" + id);
-            var http = CreateClient();
+            var endpoint = CreateUriBase("/accounts/" + id);
+            var result = await GetAsync<AccountModel>(endpoint);
 
-            var response = await http.GetAsync(endpoint);
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<AccountModel>(result);
-
-                return data;
-            }
-
-            return null;
+            return result;
         }
 
         /// <summary>
@@ -181,9 +150,25 @@ namespace NetDon
             return await GetUserFollows("followers", id, maxId, sinceId, limit);
         }
 
+        public async Task<RelationshipModel> GetRelationShipsAsync(long id)
+        {
+            var endpoint = CreateUriBase("/accounts/relationships?id=" + id);
+            var result = await GetAsync<IEnumerable<RelationshipModel>>(endpoint);
+
+            return result.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<RelationshipModel>> GetRelationShipsAsync(long[] ids)
+        {
+            var endpoint = CreateUriBase("/accounts/relationships?id[]=" + string.Join("&id[]=", ids));
+            var result = await GetAsync<IEnumerable<RelationshipModel>>(endpoint);
+
+            return result;
+        }
+
         private async Task<IEnumerable<AccountModel>> GetUserFollows(string apiName, long id, long? maxId, long? sinceId, int limit)
         {
-            var parameters = prefix + "/accounts/" + id + "/" + apiName;
+            var parameters = "/accounts/" + id + "/" + apiName;
 
             // limit は最大 80 まで
             if (limit > 80)
@@ -202,18 +187,20 @@ namespace NetDon
                 parameters += "&since_id=" + sinceId;
             }
 
-            var endpoint = new Uri(this.instanceUri, parameters);
+            var endpoint = CreateUriBase(parameters);
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint);
+            return result;
+        }
 
-
+        private async Task<string> GetRelationshipsAsync(Uri endpoint)
+        {
             var http = CreateClient();
 
             var response = await http.GetAsync(endpoint);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<IEnumerable<AccountModel>>(result);
-
-                return data;
+                return result;
             }
 
             return null;
@@ -229,18 +216,9 @@ namespace NetDon
         /// <returns></returns>
         public async Task<IEnumerable<StatusModel>> GetHomeTimelineAsync()
         {
-            var endpoint = new Uri(this.instanceUri, prefix + "/timelines/home");
-            var http = CreateClient();
-
-            var response = await http.GetAsync(endpoint);
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<IEnumerable<StatusModel>>(result);
-                return data;
-            }
-
-            return null;
+            var endpoint = CreateUriBase("/timelines/home");
+            var result = await GetAsync<IEnumerable<StatusModel>>(endpoint);
+            return result;
         }
 
         #endregion

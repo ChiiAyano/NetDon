@@ -84,5 +84,23 @@ namespace NetDon.Tests
 
             output.WriteLine(string.Join("\r\n", following));
         }
+
+        [Fact]
+        public async Task GetRelationshipTest()
+        {
+            var client = GetClient();
+            var relationship = await client.GetRelationShipsAsync(19);
+
+            output.WriteLine(relationship.ToString());
+        }
+
+        [Fact]
+        public async Task GetRelationshipsTest()
+        {
+            var client = GetClient();
+            var relationships = await client.GetRelationShipsAsync(new long[] { 1, 19 });
+
+            output.WriteLine(string.Join("\r\n", relationships));
+        }
     }
 }

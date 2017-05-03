@@ -1,15 +1,68 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NetDon
 {
     public abstract class ApiBase
     {
-        protected Uri CreateUriBase(Uri mastodonUri, string endpoint)
+        private const string prefix = "/api/v1";
+        protected readonly Uri instanceUri;
+        private readonly string accessToken;
+
+        public ApiBase(string instanceUri, string accessToken)
         {
-            var uri = new Uri(mastodonUri, "/api/v1/" + endpoint);
+            this.instanceUri = new Uri(instanceUri);
+            this.accessToken = accessToken;
+        }
+
+        public ApiBase(Uri instanceUri, string accessToken)
+        {
+            this.instanceUri = instanceUri;
+            this.accessToken = accessToken;
+        }
+
+        protected ApiBase(Uri instanceUri)
+        {
+            this.instanceUri = instanceUri;
+        }
+
+        protected HttpClient CreateClient()
+        {
+            var http = new HttpClient();
+            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.accessToken);
+
+            return http;
+        }
+
+        protected Uri CreateUriBase(string endpoint)
+        {
+            return CreateUriBase(this.instanceUri, endpoint);
+        }
+
+        protected Uri CreateUriBase(Uri baseUri, string endpoint)
+        {
+            var uri = new Uri(baseUri, prefix + endpoint);
             return uri;
+        }
+
+        protected async Task<T> GetAsync<T>(Uri endpoint)
+        {
+            var http = CreateClient();
+
+            var response = await http.GetAsync(endpoint);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<T>(result);
+                return data;
+            }
+
+            return default(T);
         }
     }
 }
