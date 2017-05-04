@@ -35,15 +35,6 @@ namespace NetDon.Tests
         }
 
         [Fact]
-        public async Task GetHomeTimelineTest()
-        {
-            var client = GetClient();
-            var timelines = await client.GetHomeTimelineAsync();
-
-            output.WriteLine(string.Join("\r\n", timelines));
-        }
-
-        [Fact]
         public async Task GetFollowersTest()
         {
             var client = GetClient();

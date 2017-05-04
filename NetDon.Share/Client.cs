@@ -243,8 +243,8 @@ namespace NetDon
         /// Get own blocks list.
         /// 現在ログインしているユーザーのブロック リストを取得します。
         /// </summary>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<AccountModel>> GetBlocksAsync(long? maxId = null, long? sinceId = null, int lim = 40)
@@ -282,8 +282,8 @@ namespace NetDon
         /// Get own favorites list.
         /// 現在ログインしているユーザーのお気に入りリストを取得します。
         /// </summary>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<StatusModel>> GetFavoritesAsync(long? maxId = null, long? sinceId = null, int lim = 40)
@@ -321,8 +321,8 @@ namespace NetDon
         /// Get follow requests list.
         /// フォロー リクエストを出しているユーザーの一覧を取得します。
         /// </summary>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<AccountModel>> GetFollowRequestsAsync(long? maxId = null, long? sinceId = null, int lim = 40)
@@ -360,8 +360,8 @@ namespace NetDon
         /// Get muted users list.
         /// ミュートしているユーザーの一覧を取得します。
         /// </summary>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<AccountModel>> GetMutesAsync(long? maxId = null, long? sinceId = null, int lim = 40)
@@ -413,9 +413,9 @@ namespace NetDon
         /// Get notifications list.
         /// 通知一覧を取得します。
         /// </summary>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
-        /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 15 で、最大値は 30 です。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="lim">Maximum number of accounts to get (Default 15, Max 30) 取得するユーザーの数を指定します。既定値は 15 で、最大値は 30 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<NotificationModel>> GetNotificationsAsync(long? maxId = null, long? sinceId = null, int lim = 15)
         {
@@ -513,8 +513,8 @@ namespace NetDon
         /// 指定されたトゥートをブーストしたアカウントの一覧を取得します。
         /// </summary>
         /// <param name="id">Toot ID. トゥート ID</param>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<AccountModel>> GetRebloggedByAsync(long id, long? maxId = null, long? sinceId = null, int lim = 40)
@@ -549,8 +549,8 @@ namespace NetDon
         /// 指定されたトゥートをお気に入りしたアカウントの一覧を取得します。
         /// </summary>
         /// <param name="id">Toot ID. トゥート ID</param>
-        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
-        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="maxId">Get a list of accounts with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of accounts with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
         /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
         /// <returns></returns>
         public async Task<IEnumerable<AccountModel>> GetFavoritedByAsync(long id, long? maxId = null, long? sinceId = null, int lim = 40)
@@ -587,10 +587,84 @@ namespace NetDon
         /// <summary>
         /// Get current home timeline. 現在のホーム タイムラインを取得します。
         /// </summary>
+        /// <param name="maxId">Get a list of status with ID less than or equal this value. 取得するトゥートのうち、ID が指定以下のトゥートにフィルターします。</param>
+        /// <param name="sinceId">Get a list of status with ID greater than this value. 取得するトゥートのうち、ID が指定以上のトゥートにフィルターします。</param>
+        /// <param name="lim">Maximum number of status to get (Default 20, Max 40) 取得するトゥートの数を指定します。既定値は 20 で、最大値は 40 です。</param>
         /// <returns></returns>
-        public async Task<IEnumerable<StatusModel>> GetHomeTimelineAsync()
+        public async Task<IEnumerable<StatusModel>> GetHomeTimelineAsync(bool localOnly = false, long? maxId = null, long? sinceId = null, int lim = 20)
         {
-            var endpoint = CreateUriBase("/timelines/home");
+            return await GetTimelineAsync("/timelines/home", localOnly, maxId, sinceId, lim);
+        }
+
+        /// <summary>
+        /// Get current federate timeline. 現在の連合タイムラインを取得します。
+        /// </summary>
+        /// <param name="maxId">Get a list of status with ID less than or equal this value. 取得するトゥートのうち、ID が指定以下のトゥートにフィルターします。</param>
+        /// <param name="sinceId">Get a list of status with ID greater than this value. 取得するトゥートのうち、ID が指定以上のトゥートにフィルターします。</param>
+        /// <param name="lim">Maximum number of status to get (Default 20, Max 40) 取得するトゥートの数を指定します。既定値は 20 で、最大値は 40 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<StatusModel>> GetPublicTimelineAsync(bool localOnly = false, long? maxId = null, long? sinceId = null, int lim = 20)
+        {
+            return await GetTimelineAsync("/timelines/public", localOnly, maxId, sinceId, lim);
+        }
+
+        /// <summary>
+        /// Get current hashtag timeline. 指定したハッシュタグによる現在のタイムラインを取得します。
+        /// </summary>
+        /// <param name="maxId">Get a list of status with ID less than or equal this value. 取得するトゥートのうち、ID が指定以下のトゥートにフィルターします。</param>
+        /// <param name="sinceId">Get a list of status with ID greater than this value. 取得するトゥートのうち、ID が指定以上のトゥートにフィルターします。</param>
+        /// <param name="lim">Maximum number of status to get (Default 20, Max 40) 取得するトゥートの数を指定します。既定値は 20 で、最大値は 40 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<StatusModel>> GetHashtagTimelineAsync(string hashtag, long? maxId = null, long? sinceId = null, int lim = 20)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 40 まで
+            if (lim > 40)
+            {
+                throw new ArgumentException("Limit exeeded. Max 40.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase("/timelines/tag/" + hashtag + "?" + CreateGetParameters(parameters.ToArray()));
+            var result = await GetAsync<IEnumerable<StatusModel>>(endpoint);
+            return result;
+        }
+
+        private async Task<IEnumerable<StatusModel>> GetTimelineAsync(string endpointName, bool localOnly, long? maxId, long? sinceId, int lim)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 40 まで
+            if (lim > 40)
+            {
+                throw new ArgumentException("Limit exeeded. Max 40.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            parameters.Add(local => localOnly);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase(endpointName + "?" + CreateGetParameters(parameters.ToArray()));
             var result = await GetAsync<IEnumerable<StatusModel>>(endpoint);
             return result;
         }
