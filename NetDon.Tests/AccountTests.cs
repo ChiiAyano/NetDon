@@ -107,7 +107,7 @@ namespace NetDon.Tests
         public async Task SearchTest()
         {
             var client = GetClient();
-            var search = await client.SearchAsync("@ayn@m6n.onsen.tech");
+            var search = await client.SearchAccountAsync("@ayn@m6n.onsen.tech");
 
             output.WriteLine(string.Join("\r\n", search));
         }
