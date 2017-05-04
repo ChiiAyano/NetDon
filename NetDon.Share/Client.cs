@@ -421,10 +421,10 @@ namespace NetDon
         {
             var parameters = new List<Expression<Func<object, object>>>();
 
-            // limit は最大 80 まで
-            if (lim > 80)
+            // limit は最大 30 まで
+            if (lim > 30)
             {
-                throw new ArgumentException("Limit exeeded. Max 80.", nameof(lim));
+                throw new ArgumentException("Limit exeeded. Max 30.", nameof(lim));
             }
 
             parameters.Add(limit => lim);
@@ -487,7 +487,95 @@ namespace NetDon
         public async Task<StatusModel> GetStatusAsync(long id)
         {
             var endpoint = CreateUriBase("/statuses/" + id);
-            var result = await GetAsync<StatusModel>(endpoint);
+            var result = await GetAsync<StatusModel>(endpoint, false);
+
+            return result;
+        }
+
+        public async Task<ContextModel> GetStatusContextAsync(long id)
+        {
+            var endpoint = CreateUriBase("/statuses/" + id + "/context");
+            var result = await GetAsync<ContextModel>(endpoint, false);
+
+            return result;
+        }
+
+        public async Task<CardModel> GetStatusCardAsync(long id)
+        {
+            var endpoint = CreateUriBase("/statuses/" + id + "/card");
+            var result = await GetAsync<CardModel>(endpoint, false);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get who boosted a status list.
+        /// 指定されたトゥートをブーストしたアカウントの一覧を取得します。
+        /// </summary>
+        /// <param name="id">Toot ID. トゥート ID</param>
+        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<AccountModel>> GetRebloggedByAsync(long id, long? maxId = null, long? sinceId = null, int lim = 40)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 80 まで
+            if (lim > 80)
+            {
+                throw new ArgumentException("Limit exeeded. Max 80.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase("/statuses/"+id+"/reblogged_by?" + CreateGetParameters(parameters.ToArray()));
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint, false);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get who favorited a status list.
+        /// 指定されたトゥートをお気に入りしたアカウントの一覧を取得します。
+        /// </summary>
+        /// <param name="id">Toot ID. トゥート ID</param>
+        /// <param name="maxId">Get a list of followers with ID less than or equal this value. 取得するユーザーのうち、ID が指定以下のユーザーにフィルターします。</param>
+        /// <param name="sinceId">Get a list of followers with ID greater than this value. 取得するユーザーのうち、ID が指定以上のユーザーにフィルターします。</param>
+        /// <param name="lim">Maximum number of accounts to get (Default 40, Max 80) 取得するユーザーの数を指定します。既定値は 40 で、最大値は 80 です。</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<AccountModel>> GetFavoritedByAsync(long id, long? maxId = null, long? sinceId = null, int lim = 40)
+        {
+            var parameters = new List<Expression<Func<object, object>>>();
+
+            // limit は最大 80 まで
+            if (lim > 80)
+            {
+                throw new ArgumentException("Limit exeeded. Max 80.", nameof(lim));
+            }
+
+            parameters.Add(limit => lim);
+
+            if (maxId.HasValue)
+            {
+                parameters.Add(max_id => maxId.Value);
+            }
+            if (sinceId.HasValue)
+            {
+                parameters.Add(since_id => sinceId.Value);
+            }
+
+            var endpoint = CreateUriBase("/statuses/" + id + "/favourited_by?" + CreateGetParameters(parameters.ToArray()));
+            var result = await GetAsync<IEnumerable<AccountModel>>(endpoint, false);
 
             return result;
         }

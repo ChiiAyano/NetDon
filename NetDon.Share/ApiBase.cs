@@ -15,6 +15,8 @@ namespace NetDon
         protected readonly Uri instanceUri;
         private readonly string accessToken;
 
+        HttpClient httpClient;
+
         public ApiBase(string instanceUri, string accessToken)
         {
             this.instanceUri = new Uri(instanceUri);
@@ -32,12 +34,13 @@ namespace NetDon
             this.instanceUri = instanceUri;
         }
 
-        protected HttpClient CreateClient()
+        protected HttpClient CreateClient(bool requireAuth = true)
         {
-            var http = new HttpClient();
-            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.accessToken);
+            if (this.httpClient == null) this.httpClient = new HttpClient();
 
-            return http;
+            httpClient.DefaultRequestHeaders.Authorization = requireAuth ? new AuthenticationHeaderValue("Bearer", this.accessToken) : null;
+
+            return this.httpClient;
         }
 
         protected Uri CreateUriBase(string endpoint)
@@ -68,9 +71,9 @@ namespace NetDon
             return contents.ToString().Trim('&');
         }
 
-        protected async Task<T> GetAsync<T>(Uri endpoint)
+        protected async Task<T> GetAsync<T>(Uri endpoint, bool requireAuth = true)
         {
-            var http = CreateClient();
+            var http = CreateClient(requireAuth);
 
             var response = await http.GetAsync(endpoint);
             if (response.IsSuccessStatusCode)
