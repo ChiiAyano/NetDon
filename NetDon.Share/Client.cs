@@ -110,6 +110,67 @@ namespace NetDon
             return result;
         }
 
+        public async Task<AccountModel> UpdateCurrentUserAsync(string displayName, string note, string avatar, string header)
+        {
+            var parameter = new Dictionary<string, string>();
+
+            if (!string.IsNullOrWhiteSpace(displayName))
+            {
+                parameter.Add("display_name", displayName);
+            }
+
+            if(!string.IsNullOrWhiteSpace(note))
+            {
+                parameter.Add("note", note);
+            }
+
+            if (!string.IsNullOrWhiteSpace(avatar))
+            {
+                parameter.Add("avatar", avatar);
+            }
+
+            if (!string.IsNullOrWhiteSpace(header))
+            {
+                parameter.Add("header", header);
+            }
+
+            if (!parameter.Any())
+            {
+                throw new ArgumentException("Nothing changed.");
+            }
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var item in parameter)
+                {
+                    content.Add(new StringContent(item.Value), item.Key);
+                }
+
+                var endpoint = CreateUriBase("/accounts/update_credentials");
+                var result = await PatchAsync<AccountModel>(endpoint, content);
+
+                return result;
+            }
+        }
+
+        public async Task<AccountModel> UpdateCurrentUserAsync(string displayName, string note, byte[] avatar, byte[] header)
+        {
+            var avatarContent = string.Empty;
+            var headerContent = string.Empty;
+
+            if (avatar != null)
+            {
+                avatarContent = Convert.ToBase64String(avatar);
+            }
+
+            if (header != null)
+            {
+                headerContent = Convert.ToBase64String(header);
+            }
+
+            return await UpdateCurrentUserAsync(displayName, note, avatarContent, headerContent);
+        }
+
         /// <summary>
         /// Get an User Information.
         /// 指定されたユーザーの情報を取得します。
@@ -576,6 +637,44 @@ namespace NetDon
 
             var endpoint = CreateUriBase("/statuses/" + id + "/favourited_by?" + CreateGetParameters(parameters.ToArray()));
             var result = await GetAsync<IEnumerable<AccountModel>>(endpoint, false);
+
+            return result;
+        }
+
+        public async Task<StatusModel> PostStatusAsync(string status, long? inReplyToId = null, long[] mediaIds = null, bool sensitive = false, string spoilerText = "", string visibility = "public")
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                throw new ArgumentNullException("status");
+            }
+
+            var content = new MultipartFormDataContent();
+            content.Add(new StringContent(status), "status");
+
+            if (inReplyToId.HasValue)
+            {
+                content.Add(new StringContent(inReplyToId.Value.ToString()));
+            }
+
+            if (mediaIds != null)
+            {
+                foreach (var item in mediaIds)
+                {
+                    content.Add(new StringContent(item.ToString()), "media_ids[]");
+                }
+            }
+
+            content.Add(new StringContent(sensitive.ToString()), "sensitive");
+
+            if (!string.IsNullOrWhiteSpace(spoilerText))
+            {
+                content.Add(new StringContent(spoilerText), "spoiler_text");
+            }
+
+            content.Add(new StringContent(visibility), "visibility");
+
+            var endpoint = CreateUriBase("/statuses");
+            var result = await PostAsync<StatusModel>(endpoint, content);
 
             return result;
         }

@@ -61,19 +61,19 @@ namespace NetDon.Tests
             var client = GetClient();
             var following = await client.GetUserFollowing(1);
 
-            output.WriteLine(string.Join("\r\n", following));
+            this.output.WriteLine(string.Join("\r\n", following));
 
             following = await client.GetUserFollowing(1, 90, limit: 80);
 
-            output.WriteLine(string.Join("\r\n", following));
+            this.output.WriteLine(string.Join("\r\n", following));
 
             following = await client.GetUserFollowing(1, sinceId: 5, limit: 80);
 
-            output.WriteLine(string.Join("\r\n", following));
+            this.output.WriteLine(string.Join("\r\n", following));
 
             following = await client.GetUserFollowing(1, 90, 5, 80);
 
-            output.WriteLine(string.Join("\r\n", following));
+            this.output.WriteLine(string.Join("\r\n", following));
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace NetDon.Tests
             var client = GetClient();
             var relationship = await client.GetRelationShipsAsync(19);
 
-            output.WriteLine(relationship.ToString());
+            this.output.WriteLine(relationship.ToString());
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace NetDon.Tests
             var client = GetClient();
             var relationships = await client.GetRelationShipsAsync(new long[] { 1, 19 });
 
-            output.WriteLine(string.Join("\r\n", relationships));
+            this.output.WriteLine(string.Join("\r\n", relationships));
         }
 
         [Fact]
@@ -100,7 +100,21 @@ namespace NetDon.Tests
             var client = GetClient();
             var search = await client.SearchAccountAsync("@ayn@m6n.onsen.tech");
 
-            output.WriteLine(string.Join("\r\n", search));
+            this.output.WriteLine(string.Join("\r\n", search));
+        }
+
+        [Fact]
+        public async Task UpdateTest()
+        {
+            var client = GetClient();
+
+            var account = await client.UpdateCurrentUserAsync("アヤノフ", string.Empty, string.Empty, string.Empty);
+
+            this.output.WriteLine(account.ToString());
+
+            account = await client.UpdateCurrentUserAsync("綾野ちい🏠🐘", string.Empty, string.Empty, string.Empty);
+
+            this.output.WriteLine(account.ToString());
         }
     }
 }

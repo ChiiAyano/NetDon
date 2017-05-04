@@ -89,5 +89,45 @@ namespace NetDon
 
             return default(T);
         }
+
+        protected async Task<T> PatchAsync<T>(Uri endpoint, HttpContent content)
+        {
+            var http = CreateClient();
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), endpoint);
+            request.Content = content;
+
+            var response = await http.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<T>(result);
+                return data;
+            }
+            else
+            {
+                var result = await response.Content.ReadAsStringAsync();
+            }
+
+            return default(T);
+        }
+
+        protected async Task<T> PostAsync<T>(Uri endpoint, HttpContent content)
+        {
+            var http = CreateClient();
+            var response = await http.PostAsync(endpoint, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<T>(result);
+                return data;
+            }
+            else
+            {
+                var result = await response.Content.ReadAsStringAsync();
+            }
+
+            return default(T);
+        }
     }
 }

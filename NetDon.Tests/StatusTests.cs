@@ -86,5 +86,28 @@ namespace NetDon.Tests
 
             output.WriteLine(string.Join("\r\n", favorited));
         }
+
+        [Fact]
+        public async Task StatusSingleTest()
+        {
+            var client = GetClient();
+            var message = "テスト from NetDon";
+
+            var status = await client.PostStatusAsync(message);
+
+            this.output.WriteLine(status.ToString());
+        }
+
+        [Fact]
+        public async Task StatusWithSpoilerTest()
+        {
+            var client = GetClient();
+            var spoiler = "隠し扉";
+            var message = "スポイラー！テスト from NetDon";
+
+            var status = await client.PostStatusAsync(message, spoilerText: spoiler);
+
+            this.output.WriteLine(status.ToString());
+        }
     }
 }
