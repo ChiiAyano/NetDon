@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Linq.Expressions;
+using System.IO;
 
 namespace NetDon
 {
@@ -415,6 +416,21 @@ namespace NetDon
 
         #endregion
 
+        #region Media
+
+        public async Task<AttachmentModel> PostMediaAsync(byte[] file, string fileName)
+        {
+            var content = new MultipartFormDataContent();
+            content.Add(new StreamContent(new MemoryStream(file)), "file", fileName);
+
+            var endpoint = CreateUriBase("/media");
+            var result = await PostAsync<AttachmentModel>(endpoint, content);
+
+            return result;
+        }
+
+        #endregion
+
         #region Mutes
 
         /// <summary>
@@ -664,7 +680,10 @@ namespace NetDon
                 }
             }
 
-            content.Add(new StringContent(sensitive.ToString()), "sensitive");
+            if (sensitive)
+            {
+                content.Add(new StringContent(sensitive.ToString()), "sensitive");
+            }
 
             if (!string.IsNullOrWhiteSpace(spoilerText))
             {

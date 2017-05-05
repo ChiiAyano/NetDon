@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetDon.Tests.Misc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,6 +107,19 @@ namespace NetDon.Tests
             var message = "スポイラー！テスト from NetDon";
 
             var status = await client.PostStatusAsync(message, spoilerText: spoiler);
+
+            this.output.WriteLine(status.ToString());
+        }
+
+        [Fact]
+        public async Task StatusAttachImageTest()
+        {
+            var client = GetClient();
+            var message = "画像テスト";
+            var image = await PlaceholderImageLoader.GetPlaceholderImageAsync(300, 300);
+
+            var attachment = await client.PostMediaAsync(image.image, image.fileName);
+            var status = await client.PostStatusAsync(message, mediaIds: new[] { attachment.ID });
 
             this.output.WriteLine(status.ToString());
         }

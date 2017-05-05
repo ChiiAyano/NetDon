@@ -89,7 +89,7 @@ namespace NetDon.Entities
         /// Get the sensitive of images in this toot.
         /// このトゥートに含まれる画像が、閲覧注意かどうかを取得します。
         /// </summary>
-        [JsonProperty("sensitive")]
+        [JsonProperty("sensitive", NullValueHandling = NullValueHandling.Ignore)]
         public bool Sensitive { get; internal set; }
         /// <summary>
         /// 
