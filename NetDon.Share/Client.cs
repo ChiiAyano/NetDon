@@ -416,6 +416,31 @@ namespace NetDon
 
         #endregion
 
+        #region Follow
+
+        /// <summary>
+        /// Send follow a remote user.
+        /// リモート ユーザーをフォローします。
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="domain"></param>
+        /// <returns></returns>
+        public async Task<AccountModel> PostRemoteFollowAsync(string username, string domain)
+        {
+            var uri = username + "@" + domain;
+
+            var content = new MultipartFormDataContent
+            {
+                { new StringContent(uri), "uri" }
+            };
+            var endpoint = CreateUriBase("/follows");
+            var result = await PostAsync<AccountModel>(endpoint, content);
+
+            return result;
+        }
+
+        #endregion
+
         #region Media
 
         public async Task<AttachmentModel> PostMediaAsync(byte[] file, string fileName)
